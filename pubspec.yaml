@@ -1,7 +1,7 @@
 name: ollie_ui
 description: "A new Flutter package project."
 version: 0.0.1
-homepage: https://github.com/skynse
+homepage: https://github.com/skynse/ollie_ui
 
 environment:
   sdk: ^3.9.2
