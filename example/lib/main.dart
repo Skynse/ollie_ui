@@ -15,7 +15,7 @@ class OllieUIExampleApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: OllieTheme.lightTheme,
       darkTheme: OllieTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       home: const ShowcaseHomePage(),
     );
   }

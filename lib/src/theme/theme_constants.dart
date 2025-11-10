@@ -149,7 +149,21 @@ class OllieThemeConstants {
 
   static const Color darkSurfaceContainerLow = Color(0xFF1F2B2A);
 
-  static const Color darkSurfaceContainerLowest = Color(0xFF142423); // Gunmetal
+  static const Color darkSurfaceContainerLowest = Color(0xFF142423);
+
+  static const Color lightSurfaceContainerLowest = Color(0xFF142423);
+
+  static const Color lightSurfaceContainerLow = Color(0xFF1F2B2A);
+
+  static const Color lightSurfaceContainer = Color(0xFF273332); // Gunmetal 2
+
+  static const Color lightSurfaceContainerHigh = Color(
+    0xFF3A4241,
+  ); // Outer Space
+
+  static const Color lightSurfaceContainerHighest = Color(
+    0xFF4D5150,
+  ); // Davys Gray
 
   // ========== HELPER METHODS ==========
 

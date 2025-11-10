@@ -223,14 +223,27 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
 
     _subMenuOverlay = OverlayEntry(
       builder: (context) {
-        return _ContextMenuOverlay(
-          items: widget.item.subItems!,
-          position: position + Offset(widget.menuWidth - 10, 0),
-          menuWidth: widget.menuWidth,
-          onClose: () {
-            _hideSubMenu(immediately: true);
-            widget.onClose();
-          },
+        return Positioned(
+          top: position.dy,
+          left: position.dx + widget.menuWidth - 4,
+          child: MouseRegion(
+            onEnter: (_) {
+              // Cancel hide timer when mouse enters submenu area
+              _hideTimer?.cancel();
+            },
+            onExit: (_) {
+              // Start hide timer when mouse exits submenu
+              _hideSubMenu();
+            },
+            child: _MenuPanel(
+              items: widget.item.subItems!,
+              menuWidth: widget.menuWidth,
+              onClose: () {
+                _hideSubMenu(immediately: true);
+                widget.onClose();
+              },
+            ),
+          ),
         );
       },
     );
@@ -243,12 +256,19 @@ class _MenuItemWidgetState extends State<_MenuItemWidget> {
       _subMenuOverlay?.remove();
       _subMenuOverlay = null;
     } else {
-      // A short delay allows the user to move the mouse into the sub-menu
-      _hideTimer = Timer(const Duration(milliseconds: 200), () {
+      // Longer delay to prevent flicker when moving mouse to submenu
+      _hideTimer = Timer(const Duration(milliseconds: 300), () {
         _subMenuOverlay?.remove();
         _subMenuOverlay = null;
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _hideTimer?.cancel();
+    _subMenuOverlay?.remove();
+    super.dispose();
   }
 
   @override
