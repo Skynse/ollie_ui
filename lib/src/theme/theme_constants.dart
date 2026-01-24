@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ollie_theme_provider.dart';
 
 /// Theme constants for Ollie UI components
 /// Provides colors and styles that adapt to light/dark mode
@@ -209,5 +210,180 @@ class OllieThemeConstants {
     } else {
       return medium ? darkShadowMedium : darkShadowSmall;
     }
+  }
+
+  // ========== CONTEXT-AWARE METHODS ==========
+  // These methods check for OllieThemeProvider first, then fall back to defaults
+
+  /// Get primary color from context (checks provider first)
+  static Color getPrimaryColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getPrimary(brightness);
+    }
+    return getPrimaryColor(brightness);
+  }
+
+  /// Get secondary color from context
+  static Color getSecondaryColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getSecondary(brightness);
+    }
+    return brightness == Brightness.light ? lightSecondary : darkSecondary;
+  }
+
+  /// Get danger color from context
+  static Color getDangerColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getDanger(brightness);
+    }
+    return brightness == Brightness.light ? lightDanger : darkDanger;
+  }
+
+  /// Get success color from context
+  static Color getSuccessColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getSuccess(brightness);
+    }
+    return brightness == Brightness.light ? lightSuccess : darkSuccess;
+  }
+
+  /// Get warning color from context
+  static Color getWarningColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getWarning(brightness);
+    }
+    return brightness == Brightness.light
+        ? const Color(0xFFF57C00)
+        : const Color(0xFFFFB74D);
+  }
+
+  /// Get info color from context
+  static Color getInfoColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getInfo(brightness);
+    }
+    return getPrimaryColor(brightness);
+  }
+
+  /// Get text color from context
+  static Color getTextColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getTextPrimary(brightness);
+    }
+    return getTextColor(brightness);
+  }
+
+  /// Get secondary text color from context
+  static Color getSecondaryTextColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getTextSecondary(brightness);
+    }
+    return getSecondaryTextColor(brightness);
+  }
+
+  /// Get background color from context
+  static Color getBackgroundColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getBackground(brightness);
+    }
+    return getBackgroundColor(brightness);
+  }
+
+  /// Get surface color from context
+  static Color getSurfaceColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getSurface(brightness);
+    }
+    return getSurfaceColor(brightness);
+  }
+
+  /// Get surface variant color from context
+  static Color getSurfaceVariantColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getSurfaceVariant(brightness);
+    }
+    return brightness == Brightness.light ? lightSurfaceVariant : darkSurfaceVariant;
+  }
+
+  /// Get border color from context
+  static Color getBorderColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getBorder(brightness);
+    }
+    return getBorderColor(brightness);
+  }
+
+  /// Get border focus color from context
+  static Color getBorderFocusColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getBorderFocus(brightness);
+    }
+    return brightness == Brightness.light ? lightBorderFocus : darkBorderFocus;
+  }
+
+  /// Get hover color from context
+  static Color getHoverColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getHover(brightness);
+    }
+    return brightness == Brightness.light ? lightHover : darkHover;
+  }
+
+  /// Get pressed color from context
+  static Color getPressedColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getPressed(brightness);
+    }
+    return brightness == Brightness.light ? lightPressed : darkPressed;
+  }
+
+  /// Get disabled color from context
+  static Color getDisabledColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getDisabled(brightness);
+    }
+    return brightness == Brightness.light ? lightDisabled : darkDisabled;
+  }
+
+  /// Get text disabled color from context
+  static Color getTextDisabledColorFromContext(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final themeData = OllieThemeProvider.maybeOf(context);
+    if (themeData != null) {
+      return themeData.getTextDisabled(brightness);
+    }
+    return brightness == Brightness.light ? lightTextDisabled : darkTextDisabled;
   }
 }

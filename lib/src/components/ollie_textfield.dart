@@ -267,11 +267,15 @@ class _OllieTextfieldState extends State<OllieTextfield> {
         ? OllieThemeConstants.darkDanger
         : OllieThemeConstants.lightDanger;
 
+    // Get primary color for focus tint
+    final primaryColor = OllieThemeConstants.getPrimaryColorFromContext(context);
+    final dangerColor = OllieThemeConstants.getDangerColorFromContext(context);
+
     final fillColor = widget.enabled
         ? (hasError
-              ? (isDark ? Color(0xFF3D1F1F) : Color(0xFFFFEBEE))
+              ? Color.alphaBlend(dangerColor.withOpacity(0.1), isDark ? Colors.black : Colors.white)
               : _focusNode.hasFocus
-              ? (isDark ? Color(0xFF1A2A3D) : Color(0xFFE3F2FD))
+              ? Color.alphaBlend(primaryColor.withOpacity(0.1), isDark ? Colors.black : Colors.white)
               : (isDark
                     ? OllieThemeConstants
                           .darkSurfaceContainerLowest // fill color of text field

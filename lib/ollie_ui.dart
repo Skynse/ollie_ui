@@ -4,6 +4,8 @@ library ollie_ui;
 export 'src/theme/theme.dart';
 export 'src/theme/theme_constants.dart';
 export 'src/theme/theme_extensions.dart';
+export 'src/theme/ollie_theme_data.dart';
+export 'src/theme/ollie_theme_provider.dart';
 
 // Components
 export 'src/components/ollie_button.dart';

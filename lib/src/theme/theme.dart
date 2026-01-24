@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme_constants.dart';
+import 'ollie_theme_data.dart';
 
 /// OllieTheme provides light and dark ThemeData for the app
 /// while preserving the custom styling of Ollie UI components
@@ -310,6 +311,316 @@ class OllieTheme {
           ),
           borderSide: const BorderSide(
             color: OllieThemeConstants.darkBorderFocus,
+            width: 2,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Creates a light theme from custom OllieThemeData
+  static ThemeData lightThemeFrom(OllieThemeData themeData) {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+
+      // Color scheme
+      colorScheme: ColorScheme.light(
+        primary: themeData.primaryColor,
+        secondary: themeData.secondaryColor,
+        error: themeData.dangerColor,
+        surface: themeData.surfaceColor,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: themeData.textPrimaryColor,
+        onError: Colors.white,
+      ),
+
+      // Scaffold
+      scaffoldBackgroundColor: themeData.backgroundColor,
+
+      // App bar
+      appBarTheme: AppBarTheme(
+        backgroundColor: themeData.surfaceColor,
+        foregroundColor: themeData.textPrimaryColor,
+        elevation: 0,
+        centerTitle: false,
+        titleTextStyle: TextStyle(
+          color: themeData.textPrimaryColor,
+          fontSize: OllieThemeConstants.fontSizeLarge,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+        ),
+      ),
+
+      // Card
+      cardTheme: CardThemeData(
+        color: themeData.surfaceColor,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          side: BorderSide(
+            color: themeData.borderColor,
+            width: 1,
+          ),
+        ),
+      ),
+
+      // Divider
+      dividerTheme: DividerThemeData(
+        color: themeData.borderColor,
+        thickness: 1,
+        space: 1,
+      ),
+
+      // Icon
+      iconTheme: IconThemeData(
+        color: themeData.textSecondaryColor,
+        size: 24,
+      ),
+
+      // Text theme
+      textTheme: TextTheme(
+        displayLarge: TextStyle(
+          fontSize: 32,
+          fontWeight: OllieThemeConstants.fontWeightBold,
+          color: themeData.textPrimaryColor,
+        ),
+        displayMedium: TextStyle(
+          fontSize: 28,
+          fontWeight: OllieThemeConstants.fontWeightBold,
+          color: themeData.textPrimaryColor,
+        ),
+        displaySmall: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeXLarge,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+          color: themeData.textPrimaryColor,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+          color: themeData.textPrimaryColor,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeLarge,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+          color: themeData.textPrimaryColor,
+        ),
+        titleLarge: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeBody,
+          fontWeight: OllieThemeConstants.fontWeightMedium,
+          color: themeData.textPrimaryColor,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeBody,
+          fontWeight: OllieThemeConstants.fontWeightRegular,
+          color: themeData.textPrimaryColor,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeMedium,
+          fontWeight: OllieThemeConstants.fontWeightRegular,
+          color: themeData.textSecondaryColor,
+        ),
+        labelLarge: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeMedium,
+          fontWeight: OllieThemeConstants.fontWeightMedium,
+          color: themeData.textPrimaryColor,
+        ),
+      ),
+
+      // Input decoration
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: themeData.surfaceVariantColor,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          borderSide: BorderSide(
+            color: themeData.borderColor,
+            width: 1.5,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          borderSide: BorderSide(
+            color: themeData.borderColor,
+            width: 1.5,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          borderSide: BorderSide(
+            color: themeData.borderFocusColor,
+            width: 2,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Creates a dark theme from custom OllieThemeData
+  static ThemeData darkThemeFrom(OllieThemeData themeData) {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+
+      // Color scheme
+      colorScheme: ColorScheme.dark(
+        primary: themeData.primaryColorDark,
+        secondary: themeData.secondaryColorDark,
+        error: themeData.dangerColorDark,
+        surface: themeData.surfaceColorDark,
+        onPrimary: Colors.black,
+        onSecondary: Colors.black,
+        onSurface: themeData.textPrimaryColorDark,
+        surfaceContainerHighest: OllieThemeConstants.darkSurfaceContainerHighest,
+        surfaceContainerHigh: OllieThemeConstants.darkSurfaceContainerHigh,
+        surfaceContainer: OllieThemeConstants.darkSurfaceContainer,
+        surfaceContainerLow: OllieThemeConstants.darkSurfaceContainerLow,
+        surfaceContainerLowest: OllieThemeConstants.darkSurfaceContainerLowest,
+        onError: Colors.black,
+      ),
+
+      dividerColor: OllieThemeConstants.darkDivider,
+
+      // Scaffold
+      scaffoldBackgroundColor: themeData.backgroundColorDark,
+
+      // App bar
+      appBarTheme: AppBarTheme(
+        backgroundColor: themeData.surfaceColorDark,
+        foregroundColor: themeData.textPrimaryColorDark,
+        elevation: 0,
+        centerTitle: false,
+        titleTextStyle: TextStyle(
+          color: themeData.textPrimaryColorDark,
+          fontSize: OllieThemeConstants.fontSizeLarge,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+        ),
+      ),
+
+      // Card
+      cardTheme: CardThemeData(
+        color: themeData.surfaceColorDark,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          side: BorderSide(
+            color: themeData.borderColorDark,
+            width: 1,
+          ),
+        ),
+      ),
+
+      // Divider
+      dividerTheme: DividerThemeData(
+        color: themeData.borderColorDark,
+        thickness: 1,
+        space: 1,
+      ),
+
+      // Icon
+      iconTheme: IconThemeData(
+        color: themeData.textSecondaryColorDark,
+        size: 24,
+      ),
+
+      // Text theme
+      textTheme: TextTheme(
+        displayLarge: TextStyle(
+          fontSize: 32,
+          fontWeight: OllieThemeConstants.fontWeightBold,
+          color: themeData.textPrimaryColorDark,
+        ),
+        displayMedium: TextStyle(
+          fontSize: 28,
+          fontWeight: OllieThemeConstants.fontWeightBold,
+          color: themeData.textPrimaryColorDark,
+        ),
+        displaySmall: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeXLarge,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+          color: themeData.textPrimaryColorDark,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+          color: themeData.textPrimaryColorDark,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeLarge,
+          fontWeight: OllieThemeConstants.fontWeightSemiBold,
+          color: themeData.textPrimaryColorDark,
+        ),
+        titleLarge: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeBody,
+          fontWeight: OllieThemeConstants.fontWeightMedium,
+          color: themeData.textPrimaryColorDark,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeBody,
+          fontWeight: OllieThemeConstants.fontWeightRegular,
+          color: themeData.textPrimaryColorDark,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeMedium,
+          fontWeight: OllieThemeConstants.fontWeightRegular,
+          color: themeData.textSecondaryColorDark,
+        ),
+        labelLarge: TextStyle(
+          fontSize: OllieThemeConstants.fontSizeMedium,
+          fontWeight: OllieThemeConstants.fontWeightMedium,
+          color: themeData.textPrimaryColorDark,
+        ),
+      ),
+
+      listTileTheme: ListTileThemeData(
+        tileColor: themeData.surfaceVariantColorDark,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+        ),
+        iconColor: themeData.textPrimaryColorDark,
+        textColor: themeData.textPrimaryColorDark,
+      ),
+
+      // Input decoration
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: themeData.surfaceVariantColorDark,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          borderSide: BorderSide(
+            color: themeData.borderColorDark,
+            width: 1.5,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          borderSide: BorderSide(
+            color: themeData.borderColorDark,
+            width: 1.5,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            OllieThemeConstants.borderRadiusMedium,
+          ),
+          borderSide: BorderSide(
+            color: themeData.borderFocusColorDark,
             width: 2,
           ),
         ),

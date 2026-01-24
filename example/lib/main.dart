@@ -5,18 +5,30 @@ void main() {
   runApp(const OllieUIExampleApp());
 }
 
+// Custom theme data with purple colors
+const purpleTheme = OllieThemeData(
+  primaryColor: Color(0xFF9C27B0), // Purple
+  primaryColorDark: Color(0xFFCE93D8), // Purple accent
+  successColor: Color(0xFF009688), // Teal
+  successColorDark: Color(0xFF4DB6AC), // Teal accent
+);
+
 class OllieUIExampleApp extends StatelessWidget {
   const OllieUIExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ollie UI Showcase',
-      debugShowCheckedModeBanner: false,
-      theme: OllieTheme.lightTheme,
-      darkTheme: OllieTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      home: const ShowcaseHomePage(),
+    // Wrap with OllieThemeProvider for custom theming
+    return OllieThemeProvider(
+      theme: purpleTheme,
+      child: MaterialApp(
+        title: 'Ollie UI Showcase',
+        debugShowCheckedModeBanner: false,
+        theme: OllieTheme.lightThemeFrom(purpleTheme),
+        darkTheme: OllieTheme.darkThemeFrom(purpleTheme),
+        themeMode: ThemeMode.light,
+        home: const ShowcaseHomePage(),
+      ),
     );
   }
 }
@@ -82,13 +94,13 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
         ),
         actions: [
           OllieButton.outline(
-            text: 'Cancel',
+            child: const Text('Cancel'),
             onPressed: () => Navigator.of(context).pop(),
             width: 100,
             height: 40,
           ),
           OllieButton(
-            text: 'Confirm',
+            child: const Text('Confirm'),
             onPressed: () {
               Navigator.of(context).pop();
               OllieToast.success(context, 'Dialog confirmed!');
@@ -136,35 +148,35 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         runSpacing: 12,
                         children: [
                           OllieButton(
-                            text: 'Primary',
+                            child: const Text('Primary'),
                             onPressed: () => OllieToast.info(
                               context,
                               'Primary button clicked',
                             ),
                           ),
                           OllieButton.secondary(
-                            text: 'Secondary',
+                            child: const Text('Secondary'),
                             onPressed: () => OllieToast.info(
                               context,
                               'Secondary button clicked',
                             ),
                           ),
                           OllieButton.outline(
-                            text: 'Outline',
+                            child: const Text('Outline'),
                             onPressed: () => OllieToast.info(
                               context,
                               'Outline button clicked',
                             ),
                           ),
                           OllieButton.danger(
-                            text: 'Danger',
+                            child: const Text('Danger'),
                             onPressed: () => OllieToast.warning(
                               context,
                               'Danger button clicked',
                             ),
                           ),
                           OllieButton.text(
-                            text: 'Text Button',
+                            child: const Text('Text Button'),
                             onPressed: () =>
                                 OllieToast.info(context, 'Text button clicked'),
                           ),
@@ -184,20 +196,20 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         runSpacing: 12,
                         children: [
                           OllieButton.icon(
-                            text: 'Download',
-                            icon: Icons.download,
+                            child: const Text('Download'),
+                            icon: const Icon(Icons.download),
                             onPressed: () =>
                                 OllieToast.success(context, 'Download started'),
                           ),
                           OllieButton.secondary(
-                            text: 'Upload',
-                            icon: Icons.upload,
+                            child: const Text('Upload'),
+                            icon: const Icon(Icons.upload),
                             onPressed: () =>
                                 OllieToast.success(context, 'Upload started'),
                           ),
                           OllieButton.outline(
-                            text: 'Settings',
-                            icon: Icons.settings,
+                            child: const Text('Settings'),
+                            icon: const Icon(Icons.settings),
                             onPressed: () =>
                                 OllieToast.info(context, 'Opening settings'),
                           ),
@@ -217,12 +229,12 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         runSpacing: 12,
                         children: [
                           OllieButton(
-                            text: 'Loading',
+                            child: const Text('Loading'),
                             onPressed: _simulateLoading,
                             loading: _isLoading,
                           ),
                           OllieButton(
-                            text: 'Disabled',
+                            child: const Text('Disabled'),
                             onPressed: () {},
                             disabled: true,
                           ),
@@ -263,7 +275,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                       ),
                       const SizedBox(height: 16),
                       OllieButton(
-                        text: 'Toggle Error',
+                        child: const Text('Toggle Error'),
                         onPressed: () =>
                             setState(() => _showError = !_showError),
                         width: 150,
@@ -287,7 +299,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         runSpacing: 12,
                         children: [
                           OllieButton(
-                            text: 'Success Toast',
+                            child: const Text('Success Toast'),
                             onPressed: () => OllieToast.success(
                               context,
                               'Operation successful!',
@@ -295,7 +307,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                             width: 150,
                           ),
                           OllieButton.danger(
-                            text: 'Error Toast',
+                            child: const Text('Error Toast'),
                             onPressed: () => OllieToast.error(
                               context,
                               'Something went wrong!',
@@ -303,7 +315,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                             width: 150,
                           ),
                           OllieButton.secondary(
-                            text: 'Info Toast',
+                            child: const Text('Info Toast'),
                             onPressed: () => OllieToast.info(
                               context,
                               'Here is some information',
@@ -311,7 +323,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                             width: 150,
                           ),
                           OllieButton.outline(
-                            text: 'Warning Toast',
+                            child: const Text('Warning Toast'),
                             onPressed: () => OllieToast.warning(
                               context,
                               'Please be careful!',
@@ -335,9 +347,9 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                       ),
                       const SizedBox(height: 16),
                       OllieButton(
-                        text: 'Show Dialog',
+                        child: const Text('Show Dialog'),
                         onPressed: _showDialog,
-                        icon: Icons.open_in_new,
+                        icon: const Icon(Icons.open_in_new),
                         width: 150,
                       ),
                     ],
@@ -682,12 +694,12 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         spacing: 12,
                         runSpacing: 12,
                         children: const [
-                          OllieBadge(text: 'Primary'),
-                          OllieBadge.success(text: 'Success'),
-                          OllieBadge.warning(text: 'Warning'),
-                          OllieBadge.danger(text: 'Danger'),
-                          OllieBadge.info(text: 'Info'),
-                          OllieBadge(text: '99+'),
+                          OllieBadge(child: Text('Primary')),
+                          OllieBadge.success(child: Text('Success')),
+                          OllieBadge.warning(child: Text('Warning')),
+                          OllieBadge.danger(child: Text('Danger')),
+                          OllieBadge.info(child: Text('Info')),
+                          OllieBadge(child: Text('99+')),
                         ],
                       ),
                       const SizedBox(height: 24),
@@ -701,7 +713,7 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                         runSpacing: 12,
                         children: [
                           OllieBadgedWidget(
-                            badge: const OllieBadge(text: '5'),
+                            badge: const OllieBadge(child: Text('5')),
                             child: Icon(Icons.notifications_outlined, size: 32),
                           ),
                           OllieBadgedWidget(
@@ -709,9 +721,9 @@ class _ShowcaseHomePageState extends State<ShowcaseHomePage> {
                             child: Icon(Icons.mail_outline, size: 32),
                           ),
                           OllieBadgedWidget(
-                            badge: const OllieBadge.danger(text: 'New'),
+                            badge: const OllieBadge.danger(child: Text('New')),
                             child: OllieButton(
-                              text: 'Messages',
+                              child: const Text('Messages'),
                               onPressed: () {},
                               width: 120,
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ollie_ui/src/theme/theme_constants.dart';
 
 /// Toast notification types
 enum OllieToastType { success, error, info, warning }
@@ -94,42 +95,30 @@ class _ToastWidgetState extends State<_ToastWidget>
     super.dispose();
   }
 
-  Color _getBackgroundColor() {
-    switch (widget.type) {
-      case OllieToastType.success:
-        return Colors.green.shade50;
-      case OllieToastType.error:
-        return Colors.red.shade50;
-      case OllieToastType.info:
-        return Colors.blue.shade50;
-      case OllieToastType.warning:
-        return Colors.orange.shade50;
-    }
+  Color _getBackgroundColor(BuildContext context) {
+    final baseColor = _getBaseColor(context);
+    return Color.alphaBlend(baseColor.withOpacity(0.1), Colors.white);
   }
 
-  Color _getBorderColor() {
-    switch (widget.type) {
-      case OllieToastType.success:
-        return Colors.green.shade300;
-      case OllieToastType.error:
-        return Colors.red.shade300;
-      case OllieToastType.info:
-        return Colors.blue.shade300;
-      case OllieToastType.warning:
-        return Colors.orange.shade300;
-    }
+  Color _getBorderColor(BuildContext context) {
+    final baseColor = _getBaseColor(context);
+    return baseColor.withOpacity(0.4);
   }
 
-  Color _getIconColor() {
+  Color _getIconColor(BuildContext context) {
+    return _getBaseColor(context);
+  }
+
+  Color _getBaseColor(BuildContext context) {
     switch (widget.type) {
       case OllieToastType.success:
-        return Colors.green.shade700;
+        return OllieThemeConstants.getSuccessColorFromContext(context);
       case OllieToastType.error:
-        return Colors.red.shade700;
+        return OllieThemeConstants.getDangerColorFromContext(context);
       case OllieToastType.info:
-        return Colors.blue.shade700;
+        return OllieThemeConstants.getInfoColorFromContext(context);
       case OllieToastType.warning:
-        return Colors.orange.shade700;
+        return OllieThemeConstants.getWarningColorFromContext(context);
     }
   }
 
@@ -166,9 +155,9 @@ class _ToastWidgetState extends State<_ToastWidget>
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: _getBackgroundColor(),
+                  color: _getBackgroundColor(context),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _getBorderColor()),
+                  border: Border.all(color: _getBorderColor(context)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
@@ -180,7 +169,7 @@ class _ToastWidgetState extends State<_ToastWidget>
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(_getIcon(), color: _getIconColor(), size: 20),
+                    Icon(_getIcon(), color: _getIconColor(context), size: 20),
                     const SizedBox(width: 12),
                     Flexible(
                       child: Text(
@@ -188,7 +177,7 @@ class _ToastWidgetState extends State<_ToastWidget>
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade800,
+                          color: OllieThemeConstants.getTextColorFromContext(context),
                         ),
                       ),
                     ),

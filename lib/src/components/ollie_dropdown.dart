@@ -74,14 +74,18 @@ class _OllieDropdownState<T> extends State<OllieDropdown<T>> {
         ? OllieThemeConstants.darkDanger
         : OllieThemeConstants.lightDanger;
 
+    // Get primary color for focus tint
+    final primaryColor = OllieThemeConstants.getPrimaryColorFromContext(context);
+    final dangerColorTint = OllieThemeConstants.getDangerColorFromContext(context);
+
     final fillColor = widget.disabled
         ? (isDark
               ? OllieThemeConstants.darkDisabled
               : OllieThemeConstants.lightDisabled)
         : (hasError
-              ? (isDark ? const Color(0xFF3D1F1F) : const Color(0xFFFFEBEE))
+              ? Color.alphaBlend(dangerColorTint.withOpacity(0.1), isDark ? Colors.black : Colors.white)
               : _focusNode.hasFocus
-              ? (isDark ? const Color(0xFF1A2A3D) : const Color(0xFFE3F2FD))
+              ? Color.alphaBlend(primaryColor.withOpacity(0.1), isDark ? Colors.black : Colors.white)
               : (isDark
                     ? OllieThemeConstants.darkSurfaceContainerLowest
                     : OllieThemeConstants.lightSurfaceVariant));

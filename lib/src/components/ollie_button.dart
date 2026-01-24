@@ -6,19 +6,19 @@ import 'package:ollie_ui/src/theme/theme_constants.dart';
 enum OllieButtonVariant { primary, secondary, outline, danger, text }
 
 class OllieButton extends StatefulWidget {
-  final String text;
+  final Widget child;
   final VoidCallback onPressed;
   final OllieButtonVariant variant;
   final double? width;
   final double? height;
-  final IconData? icon;
+  final Widget? icon;
   final bool loading;
   final bool disabled;
 
   // Default constructor (primary button)
   const OllieButton({
     super.key,
-    required this.text,
+    required this.child,
     required this.onPressed,
     this.width,
     this.height,
@@ -30,7 +30,7 @@ class OllieButton extends StatefulWidget {
   // Named constructor for secondary variant
   const OllieButton.secondary({
     super.key,
-    required this.text,
+    required this.child,
     required this.onPressed,
     this.width,
     this.height,
@@ -42,7 +42,7 @@ class OllieButton extends StatefulWidget {
   // Named constructor for outline variant
   const OllieButton.outline({
     super.key,
-    required this.text,
+    required this.child,
     required this.onPressed,
     this.width,
     this.height,
@@ -54,7 +54,7 @@ class OllieButton extends StatefulWidget {
   // Named constructor for danger/destructive actions
   const OllieButton.danger({
     super.key,
-    required this.text,
+    required this.child,
     required this.onPressed,
     this.width,
     this.height,
@@ -66,7 +66,7 @@ class OllieButton extends StatefulWidget {
   // Named constructor for text-only button
   const OllieButton.text({
     super.key,
-    required this.text,
+    required this.child,
     required this.onPressed,
     this.width,
     this.height,
@@ -78,7 +78,7 @@ class OllieButton extends StatefulWidget {
   // Named constructor for icon button
   const OllieButton.icon({
     super.key,
-    required this.text,
+    required this.child,
     required this.onPressed,
     required this.icon,
     this.width,
@@ -116,27 +116,19 @@ class _OllieButtonState extends State<OllieButton>
   }
 
   Color _getBackgroundColor(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-
     if (widget.disabled) {
-      return brightness == Brightness.light
-          ? OllieThemeConstants.lightDisabled
-          : OllieThemeConstants.darkDisabled;
+      return OllieThemeConstants.getDisabledColorFromContext(context);
     }
 
     switch (widget.variant) {
       case OllieButtonVariant.primary:
-        return OllieThemeConstants.getPrimaryColor(brightness);
+        return OllieThemeConstants.getPrimaryColorFromContext(context);
       case OllieButtonVariant.secondary:
-        return brightness == Brightness.light
-            ? OllieThemeConstants.lightSecondary
-            : OllieThemeConstants.darkSecondary;
+        return OllieThemeConstants.getSecondaryColorFromContext(context);
       case OllieButtonVariant.outline:
         return Colors.transparent;
       case OllieButtonVariant.danger:
-        return brightness == Brightness.light
-            ? OllieThemeConstants.lightDanger
-            : OllieThemeConstants.darkDanger;
+        return OllieThemeConstants.getDangerColorFromContext(context);
       case OllieButtonVariant.text:
         return Colors.transparent;
     }
@@ -146,9 +138,7 @@ class _OllieButtonState extends State<OllieButton>
     final brightness = Theme.of(context).brightness;
 
     if (widget.disabled) {
-      return brightness == Brightness.light
-          ? OllieThemeConstants.lightTextDisabled
-          : OllieThemeConstants.darkTextDisabled;
+      return OllieThemeConstants.getTextDisabledColorFromContext(context);
     }
 
     switch (widget.variant) {
@@ -159,17 +149,16 @@ class _OllieButtonState extends State<OllieButton>
         return brightness == Brightness.light ? Colors.white : Colors.black;
       case OllieButtonVariant.outline:
       case OllieButtonVariant.text:
-        return OllieThemeConstants.getPrimaryColor(brightness);
+        return OllieThemeConstants.getPrimaryColorFromContext(context);
     }
   }
 
   Border? _getBorder(BuildContext context) {
     if (widget.variant == OllieButtonVariant.outline) {
-      final brightness = Theme.of(context).brightness;
       return Border.all(
         color: widget.disabled
-            ? OllieThemeConstants.getBorderColor(brightness)
-            : OllieThemeConstants.getPrimaryColor(brightness),
+            ? OllieThemeConstants.getBorderColorFromContext(context)
+            : OllieThemeConstants.getPrimaryColorFromContext(context),
         width: 2,
       );
     }
@@ -194,6 +183,7 @@ class _OllieButtonState extends State<OllieButton>
         child: Builder(
           builder: (context) {
             final brightness = Theme.of(context).brightness;
+            final textColor = _getTextColor(context);
             return Container(
               width: widget.width ?? 200,
               height: widget.height ?? 50,
@@ -216,7 +206,7 @@ class _OllieButtonState extends State<OllieButton>
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                            _getTextColor(context),
+                            textColor,
                           ),
                         ),
                       )
@@ -225,21 +215,23 @@ class _OllieButtonState extends State<OllieButton>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           if (widget.icon != null) ...[
-                            Icon(
-                              widget.icon,
-                              color: _getTextColor(context),
-                              size: 20,
+                            IconTheme(
+                              data: IconThemeData(
+                                color: textColor,
+                                size: 20,
+                              ),
+                              child: widget.icon!,
                             ),
                             const SizedBox(width: 8),
                           ],
-                          Text(
-                            widget.text,
+                          DefaultTextStyle(
                             style: TextStyle(
-                              color: _getTextColor(context),
+                              color: textColor,
                               fontSize: OllieThemeConstants.fontSizeBody,
                               fontWeight:
                                   OllieThemeConstants.fontWeightSemiBold,
                             ),
+                            child: widget.child,
                           ),
                         ],
                       ),

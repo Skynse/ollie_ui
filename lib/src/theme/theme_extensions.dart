@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'theme_constants.dart';
+import 'ollie_theme_data.dart';
+import 'ollie_theme_provider.dart';
 
 /// Extension on BuildContext to easily access theme-aware colors
 extension ThemeExtension on BuildContext {
@@ -9,65 +11,170 @@ extension ThemeExtension on BuildContext {
   /// Check if dark mode is active
   bool get isDarkMode => brightness == Brightness.dark;
 
-  /// Get primary color
-  Color get primaryColor => OllieThemeConstants.getPrimaryColor(brightness);
+  /// Get the OllieThemeData if available
+  OllieThemeData? get _themeData => OllieThemeProvider.maybeOf(this);
 
-  /// Get text color
-  Color get textColor => OllieThemeConstants.getTextColor(brightness);
+  /// Get primary color (checks OllieThemeProvider first)
+  Color get primaryColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getPrimary(brightness);
+    }
+    return OllieThemeConstants.getPrimaryColor(brightness);
+  }
 
-  /// Get secondary text color
-  Color get secondaryTextColor =>
-      OllieThemeConstants.getSecondaryTextColor(brightness);
+  /// Get text color (checks OllieThemeProvider first)
+  Color get textColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getTextPrimary(brightness);
+    }
+    return OllieThemeConstants.getTextColor(brightness);
+  }
 
-  /// Get background color
-  Color get backgroundColor =>
-      OllieThemeConstants.getBackgroundColor(brightness);
+  /// Get secondary text color (checks OllieThemeProvider first)
+  Color get secondaryTextColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getTextSecondary(brightness);
+    }
+    return OllieThemeConstants.getSecondaryTextColor(brightness);
+  }
 
-  /// Get surface color
-  Color get surfaceColor => OllieThemeConstants.getSurfaceColor(brightness);
+  /// Get background color (checks OllieThemeProvider first)
+  Color get backgroundColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getBackground(brightness);
+    }
+    return OllieThemeConstants.getBackgroundColor(brightness);
+  }
 
-  /// Get surface variant color
-  Color get surfaceVariantColor => isDarkMode
-      ? OllieThemeConstants.darkBackground
-      : OllieThemeConstants.lightSurfaceVariant;
+  /// Get surface color (checks OllieThemeProvider first)
+  Color get surfaceColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getSurface(brightness);
+    }
+    return OllieThemeConstants.getSurfaceColor(brightness);
+  }
 
-  /// Get border color
-  Color get borderColor => OllieThemeConstants.getBorderColor(brightness);
+  /// Get surface variant color (checks OllieThemeProvider first)
+  Color get surfaceVariantColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getSurfaceVariant(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkBackground
+        : OllieThemeConstants.lightSurfaceVariant;
+  }
 
-  /// Get hover color
-  Color get hoverColor => isDarkMode
-      ? OllieThemeConstants.darkHover
-      : OllieThemeConstants.lightHover;
+  /// Get border color (checks OllieThemeProvider first)
+  Color get borderColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getBorder(brightness);
+    }
+    return OllieThemeConstants.getBorderColor(brightness);
+  }
 
-  /// Get pressed color
-  Color get pressedColor => isDarkMode
-      ? OllieThemeConstants.darkPressed
-      : OllieThemeConstants.lightPressed;
+  /// Get hover color (checks OllieThemeProvider first)
+  Color get hoverColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getHover(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkHover
+        : OllieThemeConstants.lightHover;
+  }
 
-  /// Get disabled color
-  Color get disabledColor => isDarkMode
-      ? OllieThemeConstants.darkDisabled
-      : OllieThemeConstants.lightDisabled;
+  /// Get pressed color (checks OllieThemeProvider first)
+  Color get pressedColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getPressed(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkPressed
+        : OllieThemeConstants.lightPressed;
+  }
 
-  /// Get text disabled color
-  Color get textDisabledColor => isDarkMode
-      ? OllieThemeConstants.darkTextDisabled
-      : OllieThemeConstants.lightTextDisabled;
+  /// Get disabled color (checks OllieThemeProvider first)
+  Color get disabledColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getDisabled(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkDisabled
+        : OllieThemeConstants.lightDisabled;
+  }
 
-  /// Get danger color
-  Color get dangerColor => isDarkMode
-      ? OllieThemeConstants.darkDanger
-      : OllieThemeConstants.lightDanger;
+  /// Get text disabled color (checks OllieThemeProvider first)
+  Color get textDisabledColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getTextDisabled(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkTextDisabled
+        : OllieThemeConstants.lightTextDisabled;
+  }
 
-  /// Get success color
-  Color get successColor => isDarkMode
-      ? OllieThemeConstants.darkSuccess
-      : OllieThemeConstants.lightSuccess;
+  /// Get danger color (checks OllieThemeProvider first)
+  Color get dangerColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getDanger(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkDanger
+        : OllieThemeConstants.lightDanger;
+  }
 
-  /// Get secondary color
-  Color get secondaryColor => isDarkMode
-      ? OllieThemeConstants.darkSecondary
-      : OllieThemeConstants.lightSecondary;
+  /// Get success color (checks OllieThemeProvider first)
+  Color get successColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getSuccess(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkSuccess
+        : OllieThemeConstants.lightSuccess;
+  }
+
+  /// Get warning color (checks OllieThemeProvider first)
+  Color get warningColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getWarning(brightness);
+    }
+    return isDarkMode
+        ? const Color(0xFFFFB74D)
+        : const Color(0xFFF57C00);
+  }
+
+  /// Get info color (checks OllieThemeProvider first)
+  Color get infoColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getInfo(brightness);
+    }
+    return primaryColor;
+  }
+
+  /// Get secondary color (checks OllieThemeProvider first)
+  Color get secondaryColor {
+    final themeData = _themeData;
+    if (themeData != null) {
+      return themeData.getSecondary(brightness);
+    }
+    return isDarkMode
+        ? OllieThemeConstants.darkSecondary
+        : OllieThemeConstants.lightSecondary;
+  }
 
   /// Get shadow
   List<BoxShadow> getShadow({bool medium = false}) {
@@ -110,4 +217,10 @@ class ThemeColors {
   Color get success => brightness == Brightness.dark
       ? OllieThemeConstants.darkSuccess
       : OllieThemeConstants.lightSuccess;
+
+  Color get warning => brightness == Brightness.dark
+      ? const Color(0xFFFFB74D)
+      : const Color(0xFFF57C00);
+
+  Color get info => primary;
 }
