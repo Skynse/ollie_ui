@@ -11,7 +11,7 @@ class OllieButton extends StatefulWidget {
   final OllieButtonVariant variant;
   final double? width;
   final double? height;
-  final Widget? icon;
+  final IconData? icon;
   final bool loading;
   final bool disabled;
 
@@ -205,9 +205,7 @@ class _OllieButtonState extends State<OllieButton>
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            textColor,
-                          ),
+                          valueColor: AlwaysStoppedAnimation<Color>(textColor),
                         ),
                       )
                     : Row(
@@ -216,11 +214,8 @@ class _OllieButtonState extends State<OllieButton>
                         children: [
                           if (widget.icon != null) ...[
                             IconTheme(
-                              data: IconThemeData(
-                                color: textColor,
-                                size: 20,
-                              ),
-                              child: widget.icon!,
+                              data: IconThemeData(color: textColor, size: 20),
+                              child: Icon(widget.icon!, color: textColor),
                             ),
                             const SizedBox(width: 8),
                           ],
