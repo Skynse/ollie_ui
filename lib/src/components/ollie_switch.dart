@@ -19,7 +19,9 @@ class OllieSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    final primaryColor = Theme.of(context).primaryColor;
+    final primaryColor = OllieThemeConstants.getPrimaryColorFromContext(
+      context,
+    );
 
     if (label != null) {
       return InkWell(
