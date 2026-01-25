@@ -11,7 +11,7 @@ class OllieButton extends StatefulWidget {
   final OllieButtonVariant variant;
   final double? width;
   final double? height;
-  final IconData? icon;
+  final Widget? icon;
   final bool loading;
   final bool disabled;
 
@@ -215,7 +215,7 @@ class _OllieButtonState extends State<OllieButton>
                           if (widget.icon != null) ...[
                             IconTheme(
                               data: IconThemeData(color: textColor, size: 20),
-                              child: Icon(widget.icon!, color: textColor),
+                              child: widget.icon!,
                             ),
                             const SizedBox(width: 8),
                           ],
